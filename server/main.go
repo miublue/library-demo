@@ -69,17 +69,17 @@ func loadData() {
 }
 
 func saveData() {
-	data, err := json.Marshal(users)
+    data, err := json.Marshal(users)
     if err != nil {
         log.Fatalf("Failed to parse data: %v\n", err)
     }
-	os.WriteFile("users.json", data, 0666)
+    os.WriteFile("users.json", data, 0666)
 
     data, err = json.Marshal(books)
     if err != nil {
         log.Fatalf("Failed to parse data: %v\n", err)
     }
-	os.WriteFile("books.json", data, 0666)
+    os.WriteFile("books.json", data, 0666)
 }
 
 func dateToString(time time.Time) string {
@@ -124,7 +124,7 @@ func getUser(w http.ResponseWriter, r *http.Request) {
     params := mux.Vars(r)
     id, err := strconv.Atoi(params["id"])
     if err != nil {
-        http.Error(w, "Invalid user ID", http.StatusNotFound)
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
         return
     }
     _, user := getUserFromID(UserID(id))
@@ -139,7 +139,7 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
     params := mux.Vars(r)
     id, err := strconv.Atoi(params["id"])
     if err != nil {
-        http.Error(w, "Invalid user ID", http.StatusNotFound)
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
         return
     }
     i, user := getUserFromID(UserID(id))
@@ -157,11 +157,11 @@ func updateUser(w http.ResponseWriter, r *http.Request) {
 func borrowBookForUser(w http.ResponseWriter, user *User, idx int, bookID BookID) {
     bidx, book := getBookFromID(bookID)
     if book == nil {
-        http.Error(w, "Invalid book ID", http.StatusNotFound)
+        json.NewEncoder(w).Encode("Book does not exist")
         return
     }
     if len(book.BorrowerIDs) == book.TotalAmount {
-        http.Error(w, "This book is not available", http.StatusNotFound)
+        json.NewEncoder(w).Encode("Book not available")
         return
     }
     // NOTE: apparently you can only borrow books for 7 days here.
@@ -184,7 +184,7 @@ func returnBookForUser(w http.ResponseWriter, user *User, idx int, bookID BookID
     bidx, book := getBookFromID(bookID)
     var foundBookInUser, foundUserInBook bool
     if book == nil {
-        http.Error(w, "Invalid book ID", http.StatusNotFound)
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
         return
     }
     // remove bookID from user borrowedBooks
@@ -196,7 +196,7 @@ func returnBookForUser(w http.ResponseWriter, user *User, idx int, bookID BookID
         }
     }
     if !foundBookInUser {
-        http.Error(w, "This user has not borrowed a book with this ID", http.StatusNotFound)
+        json.NewEncoder(w).Encode("User has no book with this ID")
         return
     }
     // remove userID from book borrowerIDs
@@ -208,7 +208,7 @@ func returnBookForUser(w http.ResponseWriter, user *User, idx int, bookID BookID
         }
     }
     if !foundUserInBook {
-        http.Error(w, "This book has not been borrowed by a user with this ID", http.StatusNotFound)
+        json.NewEncoder(w).Encode("User not found in book's data")
         return
     }
     users[idx] = *user
@@ -221,7 +221,7 @@ func performUserAction(w http.ResponseWriter, r *http.Request) {
     params := mux.Vars(r)
     id, err := strconv.Atoi(params["id"])
     if err != nil {
-        http.Error(w, "Invalid user ID", http.StatusNotFound)
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
         return
     }
     action := params["action"]
@@ -237,7 +237,7 @@ func performUserAction(w http.ResponseWriter, r *http.Request) {
             returnBookForUser(w, user, i, bookID.ID)
             break
         default:
-            http.Error(w, "Invalid user action", http.StatusNotFound)
+            http.Error(w, "Invalid action", http.StatusBadRequest)
             return
         saveData()
         }
@@ -249,7 +249,7 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
     params := mux.Vars(r)
     id, err := strconv.Atoi(params["id"])
     if err != nil {
-        http.Error(w, "Invalid user ID", http.StatusNotFound)
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
         return
     }
     i, user := getUserFromID(UserID(id))
@@ -281,7 +281,7 @@ func getBook(w http.ResponseWriter, r *http.Request) {
     params := mux.Vars(r)
     id, err := strconv.Atoi(params["id"])
     if err != nil {
-        http.Error(w, "Invalid book ID", http.StatusNotFound)
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
         return
     }
     _, book := getBookFromID(BookID(id))
@@ -296,7 +296,7 @@ func updateBook(w http.ResponseWriter, r *http.Request) {
     params := mux.Vars(r)
     id, err := strconv.Atoi(params["id"])
     if err != nil {
-        http.Error(w, "Invalid book ID", http.StatusNotFound)
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
         return
     }
     i, book := getBookFromID(BookID(id))
@@ -315,7 +315,7 @@ func deleteBook(w http.ResponseWriter, r *http.Request) {
     params := mux.Vars(r)
     id, err := strconv.Atoi(params["id"])
     if err != nil {
-        http.Error(w, "Invalid book ID", http.StatusNotFound)
+        http.Error(w, "Invalid ID", http.StatusBadRequest)
         return
     }
     i, book := getBookFromID(BookID(id))
