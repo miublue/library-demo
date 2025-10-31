@@ -1,0 +1,7 @@
+name "client"
+description "test client for my library thing"
+authors "Miu"
+copyright "Copyright © 2025, Miu"
+license "MIT"
+libs "curl"
+
