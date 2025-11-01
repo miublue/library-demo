@@ -2,10 +2,10 @@ module game;
 import std;
 import raylib;
 import raygui;
-import client;
-import entity;
-import player;
 import config;
+import client;
+import player;
+import world;
 
 enum GameScreenState {
     LOGIN_SCREEN,
@@ -26,23 +26,27 @@ class Game {
     GameScreen[GameScreenState] screens;
 
     Camera2D camera;
+    World world;
     Player player;
-    Font font;
-    string text;
+    /* Font font; */
+    /* string text; */
 
     this() {
-        player = new Player(Vector2(120, 120));
-        font = LoadFontEx(FONT_PATH.toStringz, FONT_SIZE, null, 0);
+        world = loadWorldMap("./data/biblioteca");
+        player = Player(world.player_pos);
+        /* font = LoadFontEx(FONT_PATH.toStringz, FONT_SIZE, null, 0); */
         camera.zoom = CAMERA_ZOOM;
         camera.rotation = 0;
 
-        screens[GameScreenState.LOGIN_SCREEN] = GameScreen(&updateLoginScreen, &renderLoginScreen);
-        screens[GameScreenState.BOOK_SCREEN]  = GameScreen(&updateBookScreen,  &renderBookScreen);
-        screens[GameScreenState.GAME_SCREEN]  = GameScreen(&updateGameScreen,  &renderGameScreen);
+        screens = [
+            GameScreenState.LOGIN_SCREEN: GameScreen(&updateLoginScreen, &renderLoginScreen),
+            GameScreenState.BOOK_SCREEN:  GameScreen(&updateBookScreen,  &renderBookScreen),
+            GameScreenState.GAME_SCREEN:  GameScreen(&updateGameScreen,  &renderGameScreen),
+        ];
     }
 
     ~this() {
-        UnloadFont(font);
+        /* UnloadFont(font); */
     }
 
     void updateLoginScreen() {}
@@ -56,22 +60,23 @@ class Game {
     }
 
     void updateGameScreen() {
-        player.update();
+        player.update(world);
         camera.target = Vector2(player.rect.x + (TILE_SIZE/2), player.rect.y + (TILE_SIZE/2));
         camera.offset = Vector2(GetScreenWidth()/2, GetScreenHeight()/2);
     }
 
     void renderGameScreen() {
-        ClearBackground(Colors.WHITE);
+        ClearBackground(Colors.BLACK);
         BeginMode2D(camera);
+        world.render();
         player.render();
         EndMode2D();
 
-        if (GuiButton(Rectangle(12, 100, 400, 96), "Click me")) {
-            text = "Clicked!";
-        }
+        /* if (GuiButton(Rectangle(12, 100, 400, 96), "Click me")) { */
+        /*     text = "Clicked!"; */
+        /* } */
 
-        if (text) DrawTextEx(font, text.toStringz, Vector2(12, 30), FONT_SIZE, 2, Colors.BLACK);
+        /* if (text) DrawTextEx(font, text.toStringz, Vector2(12, 30), FONT_SIZE, 2, Colors.BLACK); */
     }
 }
 
