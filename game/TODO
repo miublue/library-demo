@@ -1,0 +1,30 @@
+
+ABSOLUTELY NEEDED:
+
+X Ability to walk around
+X Spritesheet animation
+- Load level from Tiled map data
+- NPCs
+- Collision detection and entity Y-sorting
+- Menu system
+- Interaction system
+- User creation and login
+- Connect to library
+- Query books
+- Borrow and return books
+- Display book information (title, author, total books, how many are available)
+- See which books you have borrowed
+- See when you are expected to return the book
+
+EXTRAS (stuff to add if i have time):
+
+- Dialog system
+- Interaction with NPCs
+- Options screen
+- Ability to redefine keybinds (for the hand-capped)
+
+VERY LOW PRIORITY:
+
+- Loading screen when fetching data
+- Showing pretty error screens if any happen
+

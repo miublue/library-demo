@@ -133,7 +133,7 @@ Book getBook(BookID id) {
     return parseBook(json);
 }
 
-void main() {
+/* void main() { */
     /* createUser("Test"); */
 
     /* borrowBook(1, 1); */
@@ -141,4 +141,4 @@ void main() {
 
     /* writeln(getUsers()); */
     /* writeln(getBooks()); */
-}
+/* } */

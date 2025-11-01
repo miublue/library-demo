@@ -40,10 +40,10 @@ O Prisioneiro de Zenda - Anthony Hope
 Musashi - Eiji Yoshikawa
 Hell’s Doorway - F. J. Thwaites
 The Man Who Went Back - Warwick Deeping
-O Último Ancestral - Ale Santos (2021
+O Último Ancestral - Ale Santos
 Stormbreaker - Anthony Horowitz
-A Cidade Perdida - (Jeronymo Monteiro)
-O Mundo Perdido - Arthur Conan Doyle (1912) 
+A Cidade Perdida - Jeronymo Monteiro
+O Mundo Perdido - Arthur Conan Doyle
 Viagem ao Centro da Terra - Jules Verne
 
 # Educacional 
@@ -73,4 +73,103 @@ Bloom Into You - Nio Nakatani
 # Manhwa
 
 Tian Guan Ci Fu (Heaven Official’s Blessing) - Mo Xiang Tong Xiu
+
+# Sem Categoria
+
+Iniciação à filosofia - Marilena Chaui
+
+Filosofia: Experiência do Pensamento - Silvio Gallo
+
+Filosofando: Introdução á Filosofia - Aranha Maria Helena Pires Martins
+
+Sistema de Avaliação de Qualidade - Humberto Stadler, Robson Seleme
+
+O Processo Decisório nas Organizações - Eduardo Picanço Cruz, Cesar Ramos Barreto, Carlos Navarro Fontanillas
+
+O Segredo da Casa Amarela - Giselda Laporta Nicolelis
+
+Fundamentos da Economia - Erica Michels, Ney Oliveira, Sandro Wollenhaupt
+
+Estatuto da Criança e do Adolescente - Senado Federal 
+
+Gestão Socioambiental no Brasil - Rodrigo Berté
+
+Direitos Humanos para Mulheres e Meninas - Dirce Doroti Merlin Clève
+
+A Caminha Empreendedora - Henrique José Castelo Branco
+
+Matemática e suas Tecnologias -  Coleção Enem 
+
+Administração e Planejamento Estratégico - Paulo Sertek, Roberto Ari Guindana, Tomas Sparano Martins
+
+Ética Empresarial na Prática - Mario Sérgio Cunha Alencast
+
+Modelos de Gestão - Cardoso, Victor Cláudio Paradela Ferreira, Carlos José Corrêa, Célio Francisco França
+
+Armazenagem, Controle e Distribuição - Clovis Pires Russo
+
+Comunicação Empresarial Eficaz: Como Falar e Escrever Bem - Kátia Luizari
+
+Análise de Investimentos & Demonstrativos Financeiros - Camila Camargo 
+
+Negociação em Comércio Exterior - Grupo Uninter 
+
+Sistemas Integrados de Gestão ERP - Cícero Caiçara Junior
+
+Papis Circenses - José Roberto Torero
+
+Sérgio Y. Vai à América - Alexandre Vidal Porto
+
+Cultura do Medo - Barry Glassner
+
+Diversos Somos Todo - Reinaldo Bulgarelli
+
+Gestão em Processos Produtivos - Eudes Luiz Costa Junior
+
+Qualidade de Vida, Consumo e Trabalho - Coleção Cadernos de EJA
+
+Gestão da Produção Industrial - Moacyr Paranhos Filho
+
+Fundamentos da Comunicação - SENAI
+
+Guias de Orientações para Resultados - FTD Educação
+
+Embriologia Básica - Keith L. Moore, T.V.N Persaud
+
+As Maçãs de Antes - Lila Maia
+
+Gestão de Custos: Perspectivas e Funcionalidades - June Alisson Westarb Cruz
+
+Linguagem, Códigos e suas Tecnologias - Coleção Enem
+
+Logistica Empresarial no Brasil, Tópicos Especiais - Edelvino Razzolini Filho
+
+Comportamento Organizacional - Neusa Vítola Pasetto, Fernando Eduardo Mesadri
+
+Desenvolvimento Gerencial, Estratégia e Competitividade - Adriano Stadler (org.), Maria do Carmo Scmidt, Pedro Monir Rodermel
+
+Análise de Projeto e Orçamento Empresarial - Joel de Jesus Macedo, Ely Celia Corbari
+
+Ciências da Natureza e suas Tecnologias - Coleção Enem 
+
+Ciências Humanas e sua Tecnologias - Coleção Enem 
+
+Formação de Preços: Mercado e Estrutura de Custos - Reis, José lvan de Paula Prohmann, Paulo Sérgio Miguel
+
+Revista de Integração Latino-Americana (RILA) - Universidade Federal de Santa Maria, Mestrado em Integração Latino-Americana, Faculdade Internacional de Curitiba
+
+Auditoria Contábil e Tributária - Rosenei Novochadlo da Costa
+
+Empreendedorismo - Paulo Sertek
+
+Modelo de Gestão: das Teorias da administração à Gestão Estratégica - Elizenda Orlickas
+
+Guerra de Esperma - Robin Baker
+
+Iniciação à Pesquisa Operacional no Ambiente de Gestão - Ricardo Alexandre D. Zanardini
+
+Referencial Curricular do Paraná: Princípios, Direitos e Orientações - Governo do Paraná Secretaria de Estado da Educação e do Esporte
+
+Gestão de Pessoas: 0 Novo Papel dos Recursos Humanos nas Organizações - Idalberto Chiavenato
+
 
