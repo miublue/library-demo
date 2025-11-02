@@ -16,8 +16,8 @@ const auto URL = "localhost:8000";
 
 struct User {
     string name;
-    BorrowedBookData[] borrowed_books = [];
     UserID id = 0;
+    BorrowedBookData[] borrowed_books = [];
 
     string toJSON() {
         return format(`{"id":%d,"name":"%s","borrowed_books":%s}`,
@@ -41,8 +41,8 @@ struct Book {
     string author;
     string[] categories;
     int total_amount;
-    UserID[] borrower_ids = [];
     BookID id = 0;
+    UserID[] borrower_ids = [];
 
     string toJSON() {
         return format(`{"id":%d,"total_amount":%d,"title":"%s","author":"%s","categories":%s,"borrower_ids":%s}`,

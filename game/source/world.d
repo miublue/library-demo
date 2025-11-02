@@ -6,7 +6,15 @@ import player;
 
 enum TileType {
     WALL,
-    NPC,
+    BOOKSHELF,
+    NPC_RECEPTION,
+    NPC_PUMPKIN_GUY,
+    NPC_GREEN_GUY,
+    NPC_POETIC_KNIGHT,
+    NPC_LAMP_HEAD,
+    NPC_SLEEPY_ALIEN,
+    NPC_GHOST_GENTLEMAN,
+    NPC_SITTING_GUY,
 }
 
 struct Tile {
@@ -25,10 +33,6 @@ class World {
         img = LoadTexture(path_t.toStringz);
     }
 
-    ~this() {
-        UnloadTexture(img);
-    }
-
     void render() {
         DrawTexture(img, 0, 0, Colors.WHITE);
     }
@@ -36,7 +40,8 @@ class World {
 
 World loadWorldMap(string path) {
     Vector2 player_pos;
-    Tile[] tiles;
+    Tile[] tiles, npcs, books;
+    // adding npcs, books and tiles separately so i can make npcs priority on player interaction
     auto file = (path ~ ".txt").readText().split('\n');
     foreach (y, line; file) {
         foreach (x, tile; line) {
@@ -45,10 +50,16 @@ World loadWorldMap(string path) {
                 player_pos = Vector2(x*TILE_SIZE, y*TILE_SIZE);
                 continue;
             }
-            auto type = tile == 'X'? TileType.WALL : TileType.NPC;
-            tiles ~= Tile(Rectangle(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE), type);
+            auto rect = Rectangle(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+            TileType type = TileType.WALL;
+            if (tile.isDigit)
+                npcs ~= Tile(rect, cast(TileType)(tile.to!int));
+            else if (tile == 'B')
+                books ~= Tile(rect, TileType.BOOKSHELF);
+            else
+                tiles ~= Tile(rect, type);
         }
     }
-    return new World(player_pos, tiles, path ~ ".png");
+    return new World(player_pos, npcs ~ books ~ tiles, path ~ ".png");
 }
 

@@ -18,7 +18,7 @@ private:
 
     int _frame = 0,
         _frame_counter = 0,
-        _animation_speed = 12,
+        _animation_speed = 9,
         _num_frames = 3;
 
 public:
@@ -27,10 +27,6 @@ public:
         rect = Rectangle(pos.x, pos.y, TILE_SIZE, TILE_SIZE);
         _img_rect = Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
         _collision_rect = Rectangle(rect.x+18, rect.y+32, 25, 32);
-    }
-
-    ~this() {
-        UnloadTexture(img);
     }
 
     void moveAndCollide(World world, Vector2 dir) {
@@ -54,19 +50,19 @@ public:
 
     void update(World world) {
         auto vel = Vector2(0, 0);
-        if (IsKeyDown(KEY_LEFT)) {
+        if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
             _is_facing_left = true;
             vel.x = -1;
         }
-        if (IsKeyDown(KEY_RIGHT)) {
+        if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
             _is_facing_left = false;
             vel.x = 1;
         }
-        if (IsKeyDown(KEY_UP)) {
+        if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {
             _is_facing_up = true;
             vel.y = -1;
         }
-        if (IsKeyDown(KEY_DOWN)) {
+        if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) {
             _is_facing_up = false;
             vel.y = 1;
         }

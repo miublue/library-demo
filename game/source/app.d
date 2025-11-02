@@ -14,7 +14,7 @@ void main() {
         game.screens[game.screen].update();
         BeginDrawing();
         game.screens[game.screen].render();
-        DrawFPS(10, 10);
+        /* DrawFPS(10, 10); */
         EndDrawing();
     }
 }

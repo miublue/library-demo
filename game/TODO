@@ -5,10 +5,11 @@ X Ability to walk around
 X Spritesheet animation
 X Load level from Tiled map data (kinda)
 X Collision detection and entity Y-sorting (kinda)
-- NPCs
-- Menu system
+X Menu system
+X NPCs
+X User login
 - Interaction system
-- User creation and login
+- User creation
 - Connect to library
 - Query books
 - Borrow and return books
