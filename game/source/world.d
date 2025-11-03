@@ -4,7 +4,7 @@ import raylib;
 import config;
 import player;
 
-enum TileType : int {
+enum TileType : uint {
     WALL,
     BOOKSHELF,
     NPC_RECEPTION,
@@ -20,8 +20,7 @@ enum TileType : int {
 struct Tile {
     Rectangle rect;
     TileType type;
-
-    int _dialog_count = 0;
+    int dialog_count = 0;
 }
 
 class World {

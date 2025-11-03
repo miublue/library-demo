@@ -14,8 +14,9 @@ X Display book information (title, author, total books, how many are available)
 X Borrow and return books
 X See which books you have borrowed
 X See when you are expected to return the book
-- Interaction system
-- Dialog system
+X Interaction system
+X Dialog system
+- NPC dialogs
 - User creation
 
 EXTRAS (stuff to add if i have time):

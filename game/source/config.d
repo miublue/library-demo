@@ -8,6 +8,7 @@ const auto WINDOW_HEIGHT = 900;
 const auto FPS = 60;
 const auto SCROLL_SPEED = 30;
 const auto DEFAULT_SPEED = 6;
+const auto DIALOG_TIMER = 10;
 const auto CAMERA_ZOOM = 4;
 const auto TILE_SIZE = 64;
 

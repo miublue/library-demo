@@ -28,6 +28,9 @@ class Game {
     World world;
     Player player;
 
+    bool dialog_active;
+    int dialog_timer;
+
     Menu login_menu,
          game_menu,
          book_menu,
@@ -78,7 +81,7 @@ class Game {
             if (user.id != 0) {
                 user = getUserByName(ent.text);
                 game_menu.components[0].text ~= ": " ~ user.name;
-                screen = GameScreenState.BOOK_SCREEN;
+                screen = GameScreenState.GAME_SCREEN;
             } else {
                 login_menu.components[0].text = GUI_TEXT["login_failed"];
                 ent.is_selected = true;
@@ -104,12 +107,17 @@ class Game {
                     books_by_category[category] ~= book;
                 }
             }
-            book_menu.addComponent(new Entry(Rectangle(10, FONT_SIZE+20, book_menu.rect.width-20, FONT_SIZE), "", delegate(UIComponent ent) {
+            book_menu.addComponent(new Entry(Rectangle(10, FONT_SIZE+20, book_menu.rect.width-40-FONT_SIZE, FONT_SIZE), "", delegate(UIComponent ent) {
                 show_user_books = false;
                 search_book = ent.text;
                 expand_info.id = 0;
                 book_menu.scroll_y = 0;
                 ent.text = "";
+            }));
+
+            auto btn_rect = Rectangle(book_menu.components[0].rect.width+20, FONT_SIZE+20, FONT_SIZE, FONT_SIZE);
+            book_menu.addComponent(new Button(btn_rect, "X", delegate(UIComponent _) {
+                screen = GameScreenState.GAME_SCREEN;
             }));
 
             current_category = book_categories[0];
@@ -177,8 +185,9 @@ class Game {
 
     void renderBookScreen() {
         ClearBackground(Colors.BLACK);
-        book_menu.components.length = book_categories.length+2;
-        book_menu.components[0].rect.width = book_menu.rect.width-20;
+        book_menu.components.length = book_categories.length+3;
+        book_menu.components[0].rect.width = book_menu.rect.width-60;
+        book_menu.components[1].rect.x = book_menu.rect.x-FONT_SIZE-10;
         float y_off = book_menu.components[$-1].rect.y + book_menu.components[$-1].rect.height;
 
         if (expand_info.id != 0) {
@@ -219,10 +228,42 @@ class Game {
         book_menu.render();
     }
 
+    void updateDialogMenu() {
+        dialog_menu.components.length = 1;
+        switch (player.interaction.type) {
+        case TileType.BOOKSHELF:
+            player.interaction.type = TileType.WALL;
+            dialog_active = false;
+            screen = GameScreenState.BOOK_SCREEN;
+            break;
+        case TileType.NPC_RECEPTION:
+            dialog_menu.components[0].text = "reception";
+            break;
+        default:
+            dialog_menu.components[0].text = "idk";
+            break;
+        }
+
+        auto wrap = (cast(Label)dialog_menu.components[$-1]).getWrappingPoint(dialog_menu.rect.width-10);
+        auto num = 1;
+        while (wrap < dialog_menu.components[$-1].text.length) {
+            auto split = dialog_menu.components[$-1].text[wrap..$];
+            dialog_menu.components[$-1].text.length = wrap;
+            dialog_menu.addComponent(new Label(Vector2(10, 10+FONT_SIZE*num), LabelAlignment.LEFT, split));
+            wrap = (cast(Label)dialog_menu.components[$-1]).getWrappingPoint(dialog_menu.rect.width-10);
+            ++num;
+        }
+    }
+
     void updateGameScreen() {
         dialog_menu.rect.width = GetScreenWidth()-20;
         dialog_menu.rect.y = GetScreenHeight()-350;
-        player.update(world);
+        if (player.interaction.type != TileType.WALL && !dialog_active) {
+            dialog_active = true;
+            dialog_timer = DIALOG_TIMER;
+        } else if (!dialog_active) {
+            player.update(world);
+        }
         camera.target = Vector2(player.rect.x + (TILE_SIZE/2), player.rect.y + (TILE_SIZE/2));
         camera.offset = Vector2(GetScreenWidth()/2, GetScreenHeight()/2);
     }
@@ -234,6 +275,18 @@ class Game {
         player.render();
         EndMode2D();
         game_menu.render();
+        if (dialog_active) {
+            updateDialogMenu();
+            dialog_menu.render();
+            if (dialog_timer > 0) {
+                --dialog_timer;
+                return;
+            }
+            if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)) {
+                player.interaction.type = TileType.WALL;
+                dialog_active = false;
+            }
+        }
     }
 }
 

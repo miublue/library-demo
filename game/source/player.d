@@ -9,6 +9,8 @@ public:
     Texture2D img;
     int speed = DEFAULT_SPEED;
 
+    Tile interaction;
+
 private:
     Rectangle _img_rect, _collision_rect;
 
@@ -27,12 +29,18 @@ public:
         rect = Rectangle(pos.x, pos.y, TILE_SIZE, TILE_SIZE);
         _img_rect = Rectangle(0, 0, TILE_SIZE, TILE_SIZE);
         _collision_rect = Rectangle(rect.x+18, rect.y+32, 25, 32);
+        interaction.type = TileType.WALL;
     }
 
     void moveAndCollide(World world, Vector2 dir) {
         rect.x += speed * dir.x;
         _collision_rect.x += speed * dir.x;
+        bool intkey = IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER);
         foreach (tile; world.tiles) {
+            if (intkey && CheckCollisionRecs(rect, tile.rect)) {
+                intkey = false;
+                interaction = tile;
+            }
             if (CheckCollisionRecs(_collision_rect, tile.rect)) {
                 rect.x -= speed * dir.x;
                 _collision_rect.x -= speed * dir.x;
@@ -41,6 +49,10 @@ public:
         rect.y += speed * dir.y;
         _collision_rect.y += speed * dir.y;
         foreach (tile; world.tiles) {
+            if (intkey && CheckCollisionRecs(rect, tile.rect)) {
+                intkey = false;
+                interaction = tile;
+            }
             if (CheckCollisionRecs(_collision_rect, tile.rect)) {
                 rect.y -= speed * dir.y;
                 _collision_rect.y -= speed * dir.y;

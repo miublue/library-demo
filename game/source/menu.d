@@ -86,6 +86,17 @@ class Label : UIComponent {
             DrawTextEx(*font, text.toStringz, pos, FONT_SIZE, FONT_SPACING, COLOR_TEXT);
         }
     }
+
+    ulong getWrappingPoint(float bound) {
+        auto pos = text.length+1;
+        Vector2 size;
+        do {
+            --pos;
+            size = MeasureTextEx(*font, text[0..pos].toStringz, FONT_SIZE, FONT_SPACING);
+        } while (size.x > bound);
+        /* while (pos > 0 && MeasureTextEx(*font, text[0..sz].toStringz, FONT_SIZE, FONT_SPACING).x > bound) --pos; */
+        return pos;
+    }
 }
 
 class Button : UIComponent {
