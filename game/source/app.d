@@ -7,6 +7,7 @@ void main() {
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE.toStringz);
     scope (exit) CloseWindow();
     SetTargetFPS(FPS);
+    SetExitKey(KEY_NULL);
 
     auto game = new Game();
 

@@ -11,6 +11,7 @@ import menu;
 import dialogue;
 
 enum GameScreenState {
+    REGISTER_SCREEN,
     LOGIN_SCREEN,
     BOOK_SCREEN,
     GAME_SCREEN,
@@ -33,6 +34,7 @@ class Game {
     int dialog_timer;
 
     Menu login_menu,
+         register_menu,
          book_menu,
          dialog_menu;
 
@@ -50,6 +52,7 @@ class Game {
         player = Player(world.player_pos);
 
         setupLoginMenu();
+        setupRegisterMenu();
         setupBookMenu();
         setupDialogMenu();
 
@@ -57,14 +60,15 @@ class Game {
         camera.rotation = 0;
 
         screens = [
-            GameScreenState.LOGIN_SCREEN: GameScreen(&updateLoginScreen, &renderLoginScreen),
-            GameScreenState.BOOK_SCREEN:  GameScreen(&updateBookScreen,  &renderBookScreen),
-            GameScreenState.GAME_SCREEN:  GameScreen(&updateGameScreen,  &renderGameScreen),
+            GameScreenState.LOGIN_SCREEN:     GameScreen(&updateLoginScreen, &renderLoginScreen),
+            GameScreenState.REGISTER_SCREEN:  GameScreen(&updateLoginScreen, &renderLoginScreen),
+            GameScreenState.BOOK_SCREEN:      GameScreen(&updateBookScreen,  &renderBookScreen),
+            GameScreenState.GAME_SCREEN:      GameScreen(&updateGameScreen,  &renderGameScreen),
         ];
     }
 
     void setupLoginMenu() {
-        login_menu = new Menu(Rectangle(WINDOW_WIDTH/2 - 300, WINDOW_HEIGHT/2 - 100, 600, 200));
+        login_menu = new Menu(Rectangle(WINDOW_WIDTH/2 - 300, WINDOW_HEIGHT/2 - 100, 600, 230));
         login_menu.addComponent(new Label(Vector2(300, 10), LabelAlignment.CENTER, GUI_TEXT["login"]));
         login_menu.addComponent(new Label(Vector2(10, 65), LabelAlignment.LEFT, GUI_TEXT["user_name"]));
         immutable size = MeasureTextEx(login_menu.font, GUI_TEXT["user_name"].toStringz, FONT_SIZE, FONT_SPACING);
@@ -77,14 +81,41 @@ class Game {
                 screen = GameScreenState.GAME_SCREEN;
             } else {
                 login_menu.components[0].text = GUI_TEXT["login_failed"];
-                ent.is_selected = true;
                 ent.text_pos = 0;
                 ent.text = "";
             }
         };
         login_menu.addComponent(new Entry(Rectangle(20+size.x, 60, 600-size.x-30, 40), "", login));
         login_menu.addComponent(new Button(Rectangle(10, 130, 580, 40), GUI_TEXT["enter"], login));
+        login_menu.addComponent(new Label(Vector2(10, 180), LabelAlignment.LEFT, GUI_TEXT["user_create"]));
+        login_menu.components[$-1].onClick = delegate(UIComponent _) {
+            screen = GameScreenState.REGISTER_SCREEN;
+        };
         login_menu.components[2].is_selected = true;
+    }
+
+    void setupRegisterMenu() {
+        register_menu = new Menu(Rectangle(WINDOW_WIDTH/2 - 300, WINDOW_HEIGHT/2 - 100, 600, 200));
+        register_menu.addComponent(new Label(Vector2(300, 10), LabelAlignment.CENTER, GUI_TEXT["register"]));
+        register_menu.addComponent(new Label(Vector2(10, 65), LabelAlignment.LEFT, GUI_TEXT["user_name"]));
+        immutable size = MeasureTextEx(register_menu.font, GUI_TEXT["user_name"].toStringz, FONT_SIZE, FONT_SPACING);
+        auto register = delegate(UIComponent _) {
+            auto ent = cast(Entry*)(&register_menu.components[2]);
+            if (!ent.text.length) return;
+            user = getUserByName(ent.text);
+            if (user.id != 0) {
+                register_menu.components[0].text = GUI_TEXT["register_failed"];
+                user = getUserByName(ent.text);
+                ent.text_pos = 0;
+                ent.text = "";
+            } else {
+                user = getUserByID(createUser(ent.text));
+                screen = GameScreenState.GAME_SCREEN;
+            }
+        };
+        register_menu.addComponent(new Entry(Rectangle(20+size.x, 60, 600-size.x-30, 40), "", register));
+        register_menu.addComponent(new Button(Rectangle(10, 130, 580, 40), GUI_TEXT["create"], register));
+        register_menu.components[2].is_selected = true;
     }
 
     void setupBookMenu() {
@@ -142,17 +173,21 @@ class Game {
     }
 
     void updateLoginScreen() {
-        login_menu.rect.x = GetScreenWidth()/2 - login_menu.rect.width/2;
-        login_menu.rect.y = GetScreenHeight()/2 - login_menu.rect.height/2;
+        auto menu = screen == GameScreenState.LOGIN_SCREEN? &login_menu : &register_menu;
+        menu.rect.x = GetScreenWidth()/2  - menu.rect.width/2;
+        menu.rect.y = GetScreenHeight()/2 - menu.rect.height/2;
     }
 
     void renderLoginScreen() {
+        auto menu = screen == GameScreenState.LOGIN_SCREEN? &login_menu : &register_menu;
         ClearBackground(Colors.BLACK);
-        login_menu.render();
+        menu.render();
     }
 
     void updateBookScreen() {
         book_menu.rect = Rectangle(10, 10, GetScreenWidth()-20, GetScreenHeight()-20);
+        if (IsKeyPressed(KEY_ESCAPE)) screen = GameScreenState.GAME_SCREEN;
+
         float x_off = 10, y_off = 10;
         foreach (component; book_menu.components) {
             if (x_off+component.rect.width >= book_menu.rect.width) {
@@ -270,7 +305,7 @@ class Game {
                 --dialog_timer;
                 return;
             }
-            if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)) {
+            if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_ESCAPE)) {
                 if (player.interaction.type in NPC_DIALOGUES) {
                     auto dialog = &NPC_DIALOGUES[player.interaction.type];
                     if (dialog.dialog_count+1 >= dialog.lines.length) dialog.dialog_count = 0;

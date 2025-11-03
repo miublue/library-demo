@@ -30,12 +30,16 @@ const string[string] GUI_TEXT;
 
 static this() {
     GUI_TEXT = [
+        "getbooks_failed": "Falha ao carregar livros",
+        "login_failed": "Falha ao entrar",
+        "register_failed": "Usuário já existe",
         "login": "Login",
+        "register": "Registrar",
         "enter": "Entrar",
+        "create": "Criar",
         "user_name": "Usuário",
         "user_books": "Meus livros",
-        "login_failed": "Falha ao entrar",
-        "getbooks_failed": "Falha ao carregar livros",
+        "user_create": "Criar conta",
         "book_title": "Título",
         "book_author": "Autor",
         "book_categories": "Categoria",
