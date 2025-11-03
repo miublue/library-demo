@@ -15,6 +15,7 @@ abstract class UIComponent {
     Rectangle rect, off_rect;
     Color color;
     bool is_selected = false;
+    int font_size = FONT_SIZE, font_spacing = FONT_SPACING;
     Font *font = null;
     string text = null;
     void delegate(UIComponent) onClick = null;
@@ -39,9 +40,9 @@ abstract class UIComponent {
         DrawRectangleRec(rect, color);
         DrawRectangleLines(rect.x.to!int, rect.y.to!int, rect.width.to!int, rect.height.to!int, COLOR_BORDER);
         if (text !is null && font !is null) {
-            immutable size = MeasureTextEx(*font, text.toStringz, FONT_SIZE, FONT_SPACING);
+            immutable size = MeasureTextEx(*font, text.toStringz, font_size, font_spacing);
             immutable pos = Vector2(rect.x+(rect.width/2)-(size.x/2), rect.y+(rect.height/2)-(size.y/2));
-            DrawTextEx(*font, text.toStringz, pos, FONT_SIZE, FONT_SPACING, COLOR_TEXT);
+            DrawTextEx(*font, text.toStringz, pos, font_size, font_spacing, COLOR_TEXT);
         }
     }
 }
@@ -62,14 +63,14 @@ class Label : UIComponent {
     }
 
     override bool selected() {
-        immutable size = MeasureTextEx(*font, text.toStringz, FONT_SIZE, FONT_SPACING);
+        immutable size = MeasureTextEx(*font, text.toStringz, font_size, font_spacing);
         rect.width = size.x;
         rect.height = size.y;
         return super.selected();
     }
 
     override void render() {
-        immutable size = MeasureTextEx(*font, text.toStringz, FONT_SIZE, FONT_SPACING);
+        immutable size = MeasureTextEx(*font, text.toStringz, font_size, font_spacing);
         Vector2 pos;
         final switch (alignment) {
         case LabelAlignment.LEFT:
@@ -83,7 +84,7 @@ class Label : UIComponent {
             break;
         }
         if (text !is null && font !is null) {
-            DrawTextEx(*font, text.toStringz, pos, FONT_SIZE, FONT_SPACING, COLOR_TEXT);
+            DrawTextEx(*font, text.toStringz, pos, font_size, font_spacing, COLOR_TEXT);
         }
     }
 
@@ -92,9 +93,8 @@ class Label : UIComponent {
         Vector2 size;
         do {
             --pos;
-            size = MeasureTextEx(*font, text[0..pos].toStringz, FONT_SIZE, FONT_SPACING);
+            size = MeasureTextEx(*font, text[0..pos].toStringz, font_size, font_spacing);
         } while (size.x > bound);
-        /* while (pos > 0 && MeasureTextEx(*font, text[0..sz].toStringz, FONT_SIZE, FONT_SPACING).x > bound) --pos; */
         return pos;
     }
 }
@@ -168,15 +168,15 @@ class Entry : UIComponent {
         DrawRectangleLines(rect.x.to!int, rect.y.to!int, rect.width.to!int, rect.height.to!int, COLOR_BORDER);
 
         if (text !is null && font !is null) {
-            immutable size = MeasureTextEx(*font, text.toStringz, FONT_SIZE, FONT_SPACING);
+            immutable size = MeasureTextEx(*font, text.toStringz, font_size, font_spacing);
             immutable pos = Vector2(rect.x+5, rect.y+(rect.height/2)-(size.y/2));
-            DrawTextEx(*font, text.toStringz, pos, FONT_SIZE, FONT_SPACING, COLOR_TEXT);
-            immutable cursor_pos = MeasureTextEx(*font, text[0..text_pos].toStringz, FONT_SIZE, FONT_SPACING);
-            immutable cursor_x = to!int(pos.x+cursor_pos.x+FONT_SPACING);
+            DrawTextEx(*font, text.toStringz, pos, font_size, font_spacing, COLOR_TEXT);
+            immutable cursor_pos = MeasureTextEx(*font, text[0..text_pos].toStringz, font_size, font_spacing);
+            immutable cursor_x = to!int(pos.x+cursor_pos.x+font_spacing);
             DrawLine(cursor_x, to!int(pos.y), cursor_x, to!int(pos.y+size.y), COLOR_TEXT);
         } else {
-            immutable pos = Vector2(rect.x+5, rect.y+(rect.height/2)-(FONT_SIZE/2));
-            DrawLine(to!int(pos.x), to!int(pos.y), to!int(pos.x), to!int(pos.y+FONT_SIZE), COLOR_TEXT);
+            immutable pos = Vector2(rect.x+5, rect.y+(rect.height/2)-(font_size/2));
+            DrawLine(to!int(pos.x), to!int(pos.y), to!int(pos.x), to!int(pos.y+font_size), COLOR_TEXT);
         }
     }
 }
@@ -185,15 +185,20 @@ class Menu {
     Rectangle rect;
     Font font;
     int scroll_y = 0;
+    int font_size, font_spacing;
     UIComponent[] components;
 
-    this(Rectangle shape) {
+    this(Rectangle shape, string path = FONT_PATH, int size = FONT_SIZE, int spacing = FONT_SPACING) {
         rect = shape;
-        font = LoadFontEx(FONT_PATH.toStringz, FONT_SIZE, null, FONT_CODEPOINTS);
+        font_size = size;
+        font_spacing = spacing;
+        font = LoadFontEx(path.toStringz, font_size, null, FONT_CODEPOINTS);
     }
 
     void addComponent(UIComponent component) {
         component.font = &font;
+        component.font_size = font_size;
+        component.font_spacing = font_spacing;
         component.rect.x = component.off_rect.x + rect.x;
         component.rect.y = component.off_rect.y + rect.y;
         components ~= component;

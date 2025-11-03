@@ -137,7 +137,7 @@ class Game {
     }
 
     void setupDialogMenu() {
-        dialog_menu = new Menu(Rectangle(10, WINDOW_HEIGHT-350, WINDOW_WIDTH-20, 340));
+        dialog_menu = new Menu(Rectangle(10, WINDOW_HEIGHT-350, WINDOW_WIDTH-20, 340), FONT_PATH, DIALOG_FONT_SIZE, DIALOG_FONT_SPACING);
         dialog_menu.addComponent(new Label(Vector2(10, 10), LabelAlignment.LEFT, ""));
     }
 
@@ -179,7 +179,7 @@ class Game {
     void renderBookScreen() {
         ClearBackground(Colors.BLACK);
         book_menu.components.length = book_categories.length+3;
-        book_menu.components[0].rect.width = book_menu.rect.width-60;
+        book_menu.components[0].rect.width = book_menu.rect.width-FONT_SIZE-30;
         book_menu.components[1].rect.x = book_menu.rect.x-FONT_SIZE-10;
         float y_off = book_menu.components[$-1].rect.y + book_menu.components[$-1].rect.height;
 

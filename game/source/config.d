@@ -12,10 +12,13 @@ const auto DIALOG_TIMER = 10;
 const auto CAMERA_ZOOM = 4;
 const auto TILE_SIZE = 64;
 
-const auto FONT_SIZE = 30;
+const auto FONT_SIZE = 40;
 const auto FONT_PATH = "data/Lato-Regular.ttf";
 const auto FONT_SPACING = 2;
 const auto FONT_CODEPOINTS = 1000;
+
+const auto DIALOG_FONT_SIZE = 50;
+const auto DIALOG_FONT_SPACING = 2;
 
 const auto COLOR_TEXT   = Color( 12,  12,  12, 255);
 const auto COLOR_BORDER = Color( 79,  77,  70, 255);
