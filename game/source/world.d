@@ -7,20 +7,20 @@ import player;
 enum TileType : uint {
     WALL,
     BOOKSHELF,
-    NPC_RECEPTION,
+    NPC_RECEPTIONIST,
     NPC_PUMPKIN_GUY,
     NPC_GREEN_GUY,
     NPC_POETIC_KNIGHT,
     NPC_LAMP_HEAD,
     NPC_SLEEPY_ALIEN,
-    NPC_GHOST_GENTLEMAN,
     NPC_SITTING_GUY,
+    NPC_GHOST_GENTLEMAN,
+    NUM_TILES,
 }
 
 struct Tile {
     Rectangle rect;
     TileType type;
-    int dialog_count = 0;
 }
 
 class World {
@@ -54,7 +54,7 @@ World loadWorldMap(string path) {
             auto rect = Rectangle(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
             TileType type = TileType.WALL;
             if (tile.isDigit)
-                npcs ~= Tile(rect, ((tile-'0').to!int + TileType.NPC_RECEPTION.to!int).to!TileType);
+                npcs ~= Tile(rect, ((tile-'0').to!int + TileType.NPC_RECEPTIONIST.to!int).to!TileType);
             else if (tile == 'B')
                 books ~= Tile(rect, TileType.BOOKSHELF);
             else

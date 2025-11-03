@@ -8,6 +8,7 @@ import connection;
 import player;
 import world;
 import menu;
+import dialogue;
 
 enum GameScreenState {
     LOGIN_SCREEN,
@@ -230,19 +231,15 @@ class Game {
 
     void updateDialogMenu() {
         dialog_menu.components.length = 1;
-        switch (player.interaction.type) {
-        case TileType.BOOKSHELF:
+        if (player.interaction.type == TileType.BOOKSHELF) {
             player.interaction.type = TileType.WALL;
             dialog_active = false;
             screen = GameScreenState.BOOK_SCREEN;
-            break;
-        case TileType.NPC_RECEPTION:
-            dialog_menu.components[0].text = "reception";
-            break;
-        default:
-            dialog_menu.components[0].text = "idk";
-            break;
+            return;
         }
+
+        auto dialog = &NPC_DIALOGUES[player.interaction.type];
+        dialog_menu.components[0].text = dialog.lines[dialog.dialog_count];
 
         auto wrap = (cast(Label)dialog_menu.components[$-1]).getWrappingPoint(dialog_menu.rect.width-10);
         auto num = 1;
@@ -283,6 +280,11 @@ class Game {
                 return;
             }
             if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER)) {
+                if (player.interaction.type in NPC_DIALOGUES) {
+                    auto dialog = &NPC_DIALOGUES[player.interaction.type];
+                    if (dialog.dialog_count+1 >= dialog.lines.length) dialog.dialog_count = 0;
+                    else dialog.dialog_count++;
+                }
                 player.interaction.type = TileType.WALL;
                 dialog_active = false;
             }
