@@ -28,7 +28,8 @@ static this() {
     GUI_TEXT = [
         "login": "Login",
         "enter": "Entrar",
-        "username": "Usuário",
+        "user_name": "Usuário",
+        "user_books": "Meus livros",
         "login_failed": "Falha ao entrar",
         "getbooks_failed": "Falha ao carregar livros",
         "book_title": "Título",
@@ -38,5 +39,7 @@ static this() {
         "book_available": "Disponível",
         "book_borrow": "Emprestar",
         "book_return": "Devolver",
+        "book_borrow_date": "Emprestado",
+        "book_return_date": "Devolver até",
     ];
 }

@@ -40,6 +40,7 @@ class Game {
     Book[][string] books_by_category;
     string current_category, search_book;
     Book expand_info;
+    bool show_user_books;
 
     this() {
         world = loadWorldMap("./data/biblioteca");
@@ -62,14 +63,14 @@ class Game {
 
     void setupGameMenu() {
         game_menu = new Menu(Rectangle(0, 0, 200, 40));
-        game_menu.addComponent(new Label(Vector2(5, 5), LabelAlignment.LEFT, GUI_TEXT["username"]));
+        game_menu.addComponent(new Label(Vector2(5, 5), LabelAlignment.LEFT, GUI_TEXT["user_name"]));
     }
 
     void setupLoginMenu() {
         login_menu = new Menu(Rectangle(WINDOW_WIDTH/2 - 300, WINDOW_HEIGHT/2 - 100, 600, 200));
         login_menu.addComponent(new Label(Vector2(300, 10), LabelAlignment.CENTER, GUI_TEXT["login"]));
-        login_menu.addComponent(new Label(Vector2(10, 65), LabelAlignment.LEFT, GUI_TEXT["username"]));
-        immutable size = MeasureTextEx(login_menu.font, GUI_TEXT["username"].toStringz, FONT_SIZE, FONT_SPACING);
+        login_menu.addComponent(new Label(Vector2(10, 65), LabelAlignment.LEFT, GUI_TEXT["user_name"]));
+        immutable size = MeasureTextEx(login_menu.font, GUI_TEXT["user_name"].toStringz, FONT_SIZE, FONT_SPACING);
         auto login = delegate(UIComponent _) {
             auto ent = cast(Entry*)(&login_menu.components[2]);
             if (!ent.text.length) return;
@@ -104,6 +105,7 @@ class Game {
                 }
             }
             book_menu.addComponent(new Entry(Rectangle(10, FONT_SIZE+20, book_menu.rect.width-20, FONT_SIZE), "", delegate(UIComponent ent) {
+                show_user_books = false;
                 search_book = ent.text;
                 expand_info.id = 0;
                 book_menu.scroll_y = 0;
@@ -118,9 +120,16 @@ class Game {
                     expand_info.id = 0;
                     current_category = (cast(Button)btn).text;
                     search_book = "";
+                    show_user_books = false;
                 }));
                 x_off += size.x+10;
             }
+            immutable size = MeasureTextEx(book_menu.font, GUI_TEXT["user_books"].toStringz, FONT_SIZE, FONT_SPACING);
+            book_menu.addComponent(new Button(Rectangle(x_off, 10, size.x+10, FONT_SIZE), GUI_TEXT["user_books"], delegate(UIComponent btn) {
+                expand_info.id = 0;
+                search_book = "";
+                show_user_books = true;
+            }));
         } catch (Exception _) {
             book_menu.addComponent(new Label(Vector2(10, 10), LabelAlignment.LEFT, GUI_TEXT["getbooks_failed"]));
         }
@@ -168,7 +177,7 @@ class Game {
 
     void renderBookScreen() {
         ClearBackground(Colors.BLACK);
-        book_menu.components.length = book_categories.length+1;
+        book_menu.components.length = book_categories.length+2;
         book_menu.components[0].rect.width = book_menu.rect.width-20;
         float y_off = book_menu.components[$-1].rect.y + book_menu.components[$-1].rect.height;
 
@@ -191,6 +200,16 @@ class Game {
                 user = getUser(user.id);
                 expand_info = getBook(expand_info.id);
             }));
+            if (has_book) {
+                immutable book = getBorrowedBookByID(user, expand_info.id);
+                immutable borrow_date = GUI_TEXT["book_borrow_date"] ~ ": " ~ book.borrow_date.humanReadableDate();
+                immutable return_date = GUI_TEXT["book_return_date"] ~ ": " ~ book.expected_return_date.humanReadableDate();
+                book_menu.addComponent(new Label(Vector2(10, y_off+(FONT_SIZE+10)*6), LabelAlignment.LEFT, borrow_date));
+                book_menu.addComponent(new Label(Vector2(10, y_off+(FONT_SIZE+10)*7), LabelAlignment.LEFT, return_date));
+            }
+        } else if (show_user_books) {
+            auto books = getBorrowedBooks(user);
+            addBooksToMenu(y_off, books);
         } else if (search_book != "") {
             auto books = getBooksByNameOrAuthor(search_book);
             addBooksToMenu(y_off, books);

@@ -3,13 +3,6 @@ import std;
 import config;
 import client;
 
-struct BookInfo {
-    BookID id;
-    string title, author;
-    DateTime borrow_date;
-    DateTime expected_return_date;
-}
-
 static User invalidUser() {
     User user;
     user.id = 0;
@@ -20,6 +13,16 @@ static Book invalidBook() {
     Book book;
     book.id = 0;
     return book;
+}
+
+static BorrowedBookData invalidBorrowedBook() {
+    BorrowedBookData book;
+    book.id = 0;
+    return book;
+}
+
+string humanReadableDate(DateTime date) {
+    return format("%d/%d/%d", date.day, date.month, date.year);
 }
 
 User getUserByID(UserID id) {
@@ -86,13 +89,18 @@ Book[] getBooksByCategory(string category) {
     return [];
 }
 
-BookInfo[] getBorrowedBooks(User user) {
-    BookInfo[] ret_books;
-    foreach (borrowed; user.borrowed_books) {
-        auto book = getBookByID(borrowed.id);
-        auto info = BookInfo(book.id, book.title, book.author, borrowed.borrow_date, borrowed.expected_return_date);
-        ret_books ~= info;
-    }
+Book[] getBorrowedBooks(User user) {
+    Book[] ret_books;
+    foreach (borrowed; user.borrowed_books)
+        ret_books ~= getBookByID(borrowed.id);
     return ret_books;
+}
+
+BorrowedBookData getBorrowedBookByID(User user, BookID id) {
+    foreach (book; user.borrowed_books) {
+        if (book.id == id)
+            return book;
+    }
+    return invalidBorrowedBook();
 }
 
