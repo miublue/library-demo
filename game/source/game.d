@@ -33,7 +33,6 @@ class Game {
     int dialog_timer;
 
     Menu login_menu,
-         game_menu,
          book_menu,
          dialog_menu;
 
@@ -50,7 +49,6 @@ class Game {
         world = loadWorldMap("./data/biblioteca");
         player = Player(world.player_pos);
 
-        setupGameMenu();
         setupLoginMenu();
         setupBookMenu();
         setupDialogMenu();
@@ -65,11 +63,6 @@ class Game {
         ];
     }
 
-    void setupGameMenu() {
-        game_menu = new Menu(Rectangle(0, 0, 200, 40));
-        game_menu.addComponent(new Label(Vector2(5, 5), LabelAlignment.LEFT, GUI_TEXT["user_name"]));
-    }
-
     void setupLoginMenu() {
         login_menu = new Menu(Rectangle(WINDOW_WIDTH/2 - 300, WINDOW_HEIGHT/2 - 100, 600, 200));
         login_menu.addComponent(new Label(Vector2(300, 10), LabelAlignment.CENTER, GUI_TEXT["login"]));
@@ -81,7 +74,6 @@ class Game {
             user = getUserByName(ent.text);
             if (user.id != 0) {
                 user = getUserByName(ent.text);
-                game_menu.components[0].text ~= ": " ~ user.name;
                 screen = GameScreenState.GAME_SCREEN;
             } else {
                 login_menu.components[0].text = GUI_TEXT["login_failed"];
@@ -271,7 +263,6 @@ class Game {
         world.render();
         player.render();
         EndMode2D();
-        game_menu.render();
         if (dialog_active) {
             updateDialogMenu();
             dialog_menu.render();

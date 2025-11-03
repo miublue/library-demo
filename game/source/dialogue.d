@@ -60,8 +60,8 @@ static this() {
     NPC_DIALOGUES[TileType.NPC_RECEPTIONIST] = Dialog([
         "Posso de ajudar?",
         "Bem-vindo! Precisa de ajuda para encontrar algo?",
-        "Alguns dizem que já encontrei livros que nem existiam… mas não conte a ninguém.",
-        "Cuidado com os livros mágicos, eles às vezes… andam sozinhos.",
+        "Alguns dizem que já encontrei livros que nem existiam... mas não conte a ninguém.",
+        "Cuidado com os livros mágicos, eles às vezes... andam sozinhos.",
     ]);
 
     NPC_DIALOGUES[TileType.NPC_SLEEPY_ALIEN] = Dialog([
