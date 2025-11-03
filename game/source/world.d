@@ -4,7 +4,7 @@ import raylib;
 import config;
 import player;
 
-enum TileType {
+enum TileType : int {
     WALL,
     BOOKSHELF,
     NPC_RECEPTION,
@@ -20,6 +20,8 @@ enum TileType {
 struct Tile {
     Rectangle rect;
     TileType type;
+
+    int _dialog_count = 0;
 }
 
 class World {
@@ -53,7 +55,7 @@ World loadWorldMap(string path) {
             auto rect = Rectangle(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
             TileType type = TileType.WALL;
             if (tile.isDigit)
-                npcs ~= Tile(rect, cast(TileType)(tile.to!int));
+                npcs ~= Tile(rect, ((tile-'0').to!int + TileType.NPC_RECEPTION.to!int).to!TileType);
             else if (tile == 'B')
                 books ~= Tile(rect, TileType.BOOKSHELF);
             else

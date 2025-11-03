@@ -8,19 +8,18 @@ X Collision detection and entity Y-sorting (kinda)
 X Menu system
 X NPCs
 X User login
-- Interaction system
-- User creation
-- Connect to library
-- Query books
+X Connect to library
+X Query books
+X Display book information (title, author, total books, how many are available)
 - Borrow and return books
-- Display book information (title, author, total books, how many are available)
+- Interaction system
+- Dialog system
 - See which books you have borrowed
 - See when you are expected to return the book
+- User creation
 
 EXTRAS (stuff to add if i have time):
 
-- Dialog system
-- Interaction with NPCs
 - Options screen
 - Ability to redefine keybinds (for the hand-capped)
 

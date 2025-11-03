@@ -6,14 +6,15 @@ const auto WINDOW_WIDTH = 1600;
 const auto WINDOW_HEIGHT = 900;
 
 const auto FPS = 60;
-const auto DEFAULT_SPEED = 9;
+const auto SCROLL_SPEED = 30;
+const auto DEFAULT_SPEED = 6;
 const auto CAMERA_ZOOM = 4;
 const auto TILE_SIZE = 64;
 
 const auto FONT_SIZE = 30;
 const auto FONT_PATH = "data/Lato-Regular.ttf";
 const auto FONT_SPACING = 2;
-const auto FONT_CODEPOINTS = 500;
+const auto FONT_CODEPOINTS = 1000;
 
 const auto COLOR_TEXT   = Color( 12,  12,  12, 255);
 const auto COLOR_BORDER = Color( 79,  77,  70, 255);
@@ -27,7 +28,13 @@ static this() {
     GUI_TEXT = [
         "login": "Login",
         "enter": "Entrar",
-        "login_failed": "Falha ao entrar",
         "username": "Usuário",
+        "login_failed": "Falha ao entrar",
+        "getbooks_failed": "Falha ao carregar livros",
+        "book_title": "Título",
+        "book_author": "Autor",
+        "book_categories": "Categoria",
+        "book_amount": "Quantidade",
+        "book_available": "Disponível",
     ];
 }

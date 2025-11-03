@@ -17,6 +17,7 @@ abstract class UIComponent {
     bool is_selected = false;
     Font *font = null;
     string text = null;
+    void delegate(UIComponent) onClick = null;
 
     this(UIComponentType uitype, Rectangle shape, Color col) {
         type = uitype;
@@ -27,6 +28,7 @@ abstract class UIComponent {
     bool selected() {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             is_selected = (CheckCollisionPointRec(GetMousePosition(), rect));
+            if (is_selected && this.onClick !is null) this.onClick(this);
         }
         return is_selected;
     }
@@ -87,8 +89,6 @@ class Label : UIComponent {
 }
 
 class Button : UIComponent {
-    void delegate(UIComponent) onClick;
-
     this(Rectangle rect, string btn_text, void delegate(UIComponent) on_click) {
         super(UIComponentType.BUTTON, rect, COLOR_BUTTON);
         text = btn_text;
@@ -96,7 +96,6 @@ class Button : UIComponent {
     }
 
     override void update() {
-        if (this.onClick !is null) this.onClick(this);
         is_selected = false;
     }
 }
@@ -174,6 +173,7 @@ class Entry : UIComponent {
 class Menu {
     Rectangle rect;
     Font font;
+    int scroll_y = 0;
     UIComponent[] components;
 
     this(Rectangle shape) {
@@ -192,13 +192,23 @@ class Menu {
         DrawRectangleRec(rect, COLOR_WINDOW);
         DrawRectangleLines(rect.x.to!int, rect.y.to!int, rect.width.to!int, rect.height.to!int, COLOR_BORDER);
 
+        if (components.length > 0) {
+            auto first = &components[0];
+            auto last = &components[$-1];
+            auto wheel = GetMouseWheelMove();
+            if (wheel > 0 && first.rect.y < rect.y) scroll_y += (wheel*SCROLL_SPEED).to!int;
+            else if (wheel < 0 && last.rect.y+last.rect.height > rect.y+rect.height) scroll_y += (wheel*SCROLL_SPEED).to!int;
+        }
+
         foreach (component; components) {
             component.rect.x = component.off_rect.x + rect.x;
-            component.rect.y = component.off_rect.y + rect.y;
+            component.rect.y = scroll_y + component.off_rect.y + rect.y;
+            if (component.rect.y < rect.y || component.rect.y+component.rect.height > rect.y+rect.height)
+                continue;
             component.render();
-            if (component.selected()) {
+            if (component.selected())
                 component.update();
-            }
         }
     }
 }
+

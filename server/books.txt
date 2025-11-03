@@ -22,7 +22,7 @@ A Luz Entre Oceanos - M. L. Stedman
 No Final, o Amor - Colleen Hoover
 A Escolha - Nicholas Sparks
 
-# Ficção 
+# Ficção
 
 Jurassic Park - Michael Crichton
 Crime e Castigo - Fyodor Dostoevsky
@@ -38,7 +38,7 @@ A Metamorfose - Franz Kafka
 
 O Prisioneiro de Zenda - Anthony Hope
 Musashi - Eiji Yoshikawa
-Hell’s Doorway - F. J. Thwaites
+Hell's Doorway - F. J. Thwaites
 The Man Who Went Back - Warwick Deeping
 O Último Ancestral - Ale Santos
 Stormbreaker - Anthony Horowitz
@@ -46,7 +46,7 @@ A Cidade Perdida - Jeronymo Monteiro
 O Mundo Perdido - Arthur Conan Doyle
 Viagem ao Centro da Terra - Jules Verne
 
-# Educacional 
+# Educacional
 
 Pedagogia do Oprimido - Paulo Freire
 Educação e Mudança - Michael W. Apple
@@ -66,13 +66,13 @@ Death Note - Tsugumi Ohba, Takeshi Obata
 O Diário de uma Apotecária (Apothecary Diaries) - Natsu Hyūga
 One Piece - Eiichiro Oda
 Noragami - Adachi, Tokashiki
-The Guy I'm Into Isn’t a Guy - Tamifull
+The Guy I'm Into Isn't a Guy - Tamifull
 Parasyte - Hitoshi Iwaaki
 Bloom Into You - Nio Nakatani
 
 # Manhwa
 
-Tian Guan Ci Fu (Heaven Official’s Blessing) - Mo Xiang Tong Xiu
+Tian Guan Ci Fu (Heaven Official's Blessing) - Mo Xiang Tong Xiu
 
 # Sem Categoria
 
@@ -90,7 +90,7 @@ O Segredo da Casa Amarela - Giselda Laporta Nicolelis
 
 Fundamentos da Economia - Erica Michels, Ney Oliveira, Sandro Wollenhaupt
 
-Estatuto da Criança e do Adolescente - Senado Federal 
+Estatuto da Criança e do Adolescente - Senado Federal
 
 Gestão Socioambiental no Brasil - Rodrigo Berté
 
@@ -98,7 +98,7 @@ Direitos Humanos para Mulheres e Meninas - Dirce Doroti Merlin Clève
 
 A Caminha Empreendedora - Henrique José Castelo Branco
 
-Matemática e suas Tecnologias -  Coleção Enem 
+Matemática e suas Tecnologias -  Coleção Enem
 
 Administração e Planejamento Estratégico - Paulo Sertek, Roberto Ari Guindana, Tomas Sparano Martins
 
@@ -110,9 +110,9 @@ Armazenagem, Controle e Distribuição - Clovis Pires Russo
 
 Comunicação Empresarial Eficaz: Como Falar e Escrever Bem - Kátia Luizari
 
-Análise de Investimentos & Demonstrativos Financeiros - Camila Camargo 
+Análise de Investimentos & Demonstrativos Financeiros - Camila Camargo
 
-Negociação em Comércio Exterior - Grupo Uninter 
+Negociação em Comércio Exterior - Grupo Uninter
 
 Sistemas Integrados de Gestão ERP - Cícero Caiçara Junior
 
@@ -150,9 +150,9 @@ Desenvolvimento Gerencial, Estratégia e Competitividade - Adriano Stadler (org.
 
 Análise de Projeto e Orçamento Empresarial - Joel de Jesus Macedo, Ely Celia Corbari
 
-Ciências da Natureza e suas Tecnologias - Coleção Enem 
+Ciências da Natureza e suas Tecnologias - Coleção Enem
 
-Ciências Humanas e sua Tecnologias - Coleção Enem 
+Ciências Humanas e sua Tecnologias - Coleção Enem
 
 Formação de Preços: Mercado e Estrutura de Custos - Reis, José lvan de Paula Prohmann, Paulo Sérgio Miguel
 
