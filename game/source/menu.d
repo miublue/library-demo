@@ -26,7 +26,7 @@ abstract class UIComponent {
     }
 
     bool selected() {
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             is_selected = (CheckCollisionPointRec(GetMousePosition(), rect));
             if (is_selected && this.onClick !is null) this.onClick(this);
         }

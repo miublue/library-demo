@@ -36,5 +36,7 @@ static this() {
         "book_categories": "Categoria",
         "book_amount": "Quantidade",
         "book_available": "Disponível",
+        "book_borrow": "Emprestar",
+        "book_return": "Devolver",
     ];
 }

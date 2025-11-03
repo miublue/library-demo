@@ -11,7 +11,7 @@ X User login
 X Connect to library
 X Query books
 X Display book information (title, author, total books, how many are available)
-- Borrow and return books
+X Borrow and return books
 - Interaction system
 - Dialog system
 - See which books you have borrowed

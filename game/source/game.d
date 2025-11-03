@@ -178,11 +178,19 @@ class Game {
             immutable categories = GUI_TEXT["book_categories"] ~ ": " ~ expand_info.categories.join(", ");
             immutable amount = GUI_TEXT["book_amount"] ~ ": " ~ expand_info.total_amount.to!string;
             immutable available = GUI_TEXT["book_available"] ~ ": " ~ (expand_info.total_amount-expand_info.borrower_ids.length).to!string;
+            immutable has_book = user.borrowed_books.map!(b => b.id).array().canFind(expand_info.id);
+            immutable button_text = (has_book)? GUI_TEXT["book_return"] : GUI_TEXT["book_borrow"];
             book_menu.addComponent(new Label(Vector2(10, y_off+(FONT_SIZE+10)*0), LabelAlignment.LEFT, title));
             book_menu.addComponent(new Label(Vector2(10, y_off+(FONT_SIZE+10)*1), LabelAlignment.LEFT, author));
             book_menu.addComponent(new Label(Vector2(10, y_off+(FONT_SIZE+10)*2), LabelAlignment.LEFT, categories));
             book_menu.addComponent(new Label(Vector2(10, y_off+(FONT_SIZE+10)*3), LabelAlignment.LEFT, amount));
             book_menu.addComponent(new Label(Vector2(10, y_off+(FONT_SIZE+10)*4), LabelAlignment.LEFT, available));
+            book_menu.addComponent(new Button(Rectangle(10, y_off+(FONT_SIZE+10)*5, 300, FONT_SIZE), button_text, delegate(UIComponent _) {
+                if (has_book) returnBook(user.id, expand_info.id);
+                else borrowBook(user.id, expand_info.id);
+                user = getUser(user.id);
+                expand_info = getBook(expand_info.id);
+            }));
         } else if (search_book != "") {
             auto books = getBooksByNameOrAuthor(search_book);
             addBooksToMenu(y_off, books);
