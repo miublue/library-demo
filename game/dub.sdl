@@ -1,4 +1,4 @@
-name "library"
+name "library_game"
 description "Game frontend for the library system."
 authors "Miu"
 copyright "Copyright © 2025, Miu"
