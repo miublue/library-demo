@@ -4,7 +4,7 @@
 
 # curl -X POST -d "$BOOK" -H 'Content-Type: application/json' localhost:8000/books
 
-curl -X POST -d '{"name":"Test"}' -H 'Content-Type: application/json' localhost:8000/users
+# curl -X POST -d '{"name":"Juquinha"}' -H 'Content-Type: application/json' localhost:8000/users
 
 # curl -X GET localhost:8000/books/1
 

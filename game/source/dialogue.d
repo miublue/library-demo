@@ -11,7 +11,7 @@ struct Dialog {
 
 Dialog[TileType] NPC_DIALOGUES;
 
-static this() {
+shared static this() {
     NPC_DIALOGUES[TileType.NPC_GHOST_GENTLEMAN] = Dialog([
         "Os vivos correm tanto... e esquecem de sentir. Eu, ao menos, tenho tempo.",
         "Você lê? Ah... então ainda há esperança nesse mundo vazio.",

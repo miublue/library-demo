@@ -3,11 +3,8 @@
 	"versions": {
 		"ddmp": "0.0.1-0.dev.3",
 		"dray": "5.0.0-r5",
-		"dray-nuklear": "0.7.1",
-		"draygui": "0.1.0",
 		"fluent-asserts": "0.13.3",
 		"libdparse": "0.14.0",
-		"raylib-d": "2.5.0",
 		"stdx-allocator": "2.77.5"
 	}
 }

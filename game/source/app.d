@@ -4,6 +4,7 @@ import config;
 import game;
 
 void main() {
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE.toStringz);
     scope (exit) CloseWindow();
     SetTargetFPS(FPS);

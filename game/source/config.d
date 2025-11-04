@@ -28,7 +28,7 @@ const auto COLOR_ENTRY  = Color(201, 197, 177, 255);
 
 const string[string] GUI_TEXT;
 
-static this() {
+shared static this() {
     GUI_TEXT = [
         "getbooks_failed": "Falha ao carregar livros",
         "login_failed": "Falha ao entrar",
