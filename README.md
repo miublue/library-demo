@@ -1,7 +1,7 @@
 # Library Demo
 
 I was told to come up with some "interesting" way to organize some books
-and automate the process of borrowing/returning said books (for whatever reason).
+and automate the process of borrowing/returning said books.
 
 My little group wanted to make a game because yes, and I couldn't figure out
 how to integrate it with excel (because it would've been so much easier to just
@@ -69,4 +69,12 @@ cd game
 dub build
 ./library_game
 ```
+
+# Screenshots
+
+![login-screen](https://i.imgur.com/NE3OlhU.png)
+![reception](https://i.imgur.com/WJbBDBy.png)
+![books list](https://i.imgur.com/QSJZYcz.png)
+![return borrowed book](https://i.imgur.com/Up1bkwf.png)
+![search](https://i.imgur.com/sR1nyAQ.png)
 
