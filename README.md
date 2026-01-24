@@ -84,3 +84,12 @@ dub build
 ./library_game
 ```
 
+## How to play
+
+There isn't really any gameplay. Here's a list of what you can do:
+
+* You can create a new user in the login screen (button "criar conta") and login into the library.
+* You can interact with the NPCs using the spacebar.
+* You can access the books by interacting with any bookshelf.
+* You can search for books, borrow or return them.
+
