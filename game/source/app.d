@@ -4,11 +4,16 @@ import config;
 import game;
 
 void main() {
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    /* You should call this function, but it errors
+     * for me even though i have the correct version.
+     * So i'll just trust that the version is right.
+     */
+    /* validateRaylibBinding(); */
+    SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
     InitWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE.toStringz);
     scope (exit) CloseWindow();
     SetTargetFPS(FPS);
-    SetExitKey(KEY_NULL);
+    SetExitKey(KeyboardKey.KEY_NULL);
 
     auto game = new Game();
 

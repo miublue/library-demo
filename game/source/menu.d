@@ -27,7 +27,7 @@ abstract class UIComponent {
     }
 
     bool selected() {
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        if (IsMouseButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
             is_selected = (CheckCollisionPointRec(GetMousePosition(), rect));
             if (is_selected && this.onClick !is null) this.onClick(this);
         }
@@ -127,32 +127,32 @@ class Entry : UIComponent {
         if (!chr) {
             immutable key = GetKeyPressed();
             switch (key) {
-            case KEY_ENTER:
+            case KeyboardKey.KEY_ENTER:
                 if (this.onFinish !is null) this.onFinish(this);
                 text_pos = text.length;
                 is_selected = false;
                 break;
-            case KEY_LEFT:
+            case KeyboardKey.KEY_LEFT:
                 if (text_pos) --text_pos;
                 break;
-            case KEY_RIGHT:
+            case KeyboardKey.KEY_RIGHT:
                 if (text_pos < text.length) ++text_pos;
                 break;
-            case KEY_BACKSPACE:
+            case KeyboardKey.KEY_BACKSPACE:
                 if (text_pos) {
                     text = text[0..text_pos-1] ~ text[text_pos..$];
                     --text_pos;
                 }
                 break;
-            case KEY_DELETE:
+            case KeyboardKey.KEY_DELETE:
                 if (text_pos < text.length) {
                     text = text[0..text_pos] ~ text[text_pos+1..$];
                 }
                 break;
-            case KEY_HOME:
+            case KeyboardKey.KEY_HOME:
                 text_pos = 0;
                 break;
-            case KEY_END:
+            case KeyboardKey.KEY_END:
                 text_pos = text.length;
                 break;
             default: break;

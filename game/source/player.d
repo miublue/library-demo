@@ -35,7 +35,7 @@ public:
     void moveAndCollide(World world, Vector2 dir) {
         rect.x += speed * dir.x;
         _collision_rect.x += speed * dir.x;
-        bool intkey = IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER);
+        bool intkey = IsKeyPressed(KeyboardKey.KEY_SPACE) || IsKeyPressed(KeyboardKey.KEY_ENTER);
         foreach (tile; world.tiles) {
             if (intkey && CheckCollisionRecs(rect, tile.rect)) {
                 intkey = false;
@@ -62,19 +62,19 @@ public:
 
     void update(World world) {
         auto vel = Vector2(0, 0);
-        if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) {
+        if (IsKeyDown(KeyboardKey.KEY_A) || IsKeyDown(KeyboardKey.KEY_LEFT)) {
             _is_facing_left = true;
             vel.x = -1;
         }
-        if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) {
+        if (IsKeyDown(KeyboardKey.KEY_D) || IsKeyDown(KeyboardKey.KEY_RIGHT)) {
             _is_facing_left = false;
             vel.x = 1;
         }
-        if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP)) {
+        if (IsKeyDown(KeyboardKey.KEY_W) || IsKeyDown(KeyboardKey.KEY_UP)) {
             _is_facing_up = true;
             vel.y = -1;
         }
-        if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN)) {
+        if (IsKeyDown(KeyboardKey.KEY_S) || IsKeyDown(KeyboardKey.KEY_DOWN)) {
             _is_facing_up = false;
             vel.y = 1;
         }

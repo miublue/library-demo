@@ -186,7 +186,7 @@ class Game {
 
     void updateBookScreen() {
         book_menu.rect = Rectangle(10, 10, GetScreenWidth()-20, GetScreenHeight()-20);
-        if (IsKeyPressed(KEY_ESCAPE)) screen = GameScreenState.GAME_SCREEN;
+        if (IsKeyPressed(KeyboardKey.KEY_ESCAPE)) screen = GameScreenState.GAME_SCREEN;
 
         float x_off = 10, y_off = 10;
         foreach (component; book_menu.components) {
@@ -305,7 +305,7 @@ class Game {
                 --dialog_timer;
                 return;
             }
-            if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_ESCAPE)) {
+            if (IsKeyPressed(KeyboardKey.KEY_SPACE) || IsKeyPressed(KeyboardKey.KEY_ENTER) || IsKeyPressed(KeyboardKey.KEY_ESCAPE)) {
                 if (player.interaction.type in NPC_DIALOGUES) {
                     auto dialog = &NPC_DIALOGUES[player.interaction.type];
                     if (dialog.dialog_count+1 >= dialog.lines.length) dialog.dialog_count = 0;
